@@ -295,19 +295,19 @@
       <img id="finale-img" src="https://images.unsplash.com/photo-1509418524413-3f3b0cfe3e2a?q=80&w=1200&auto=format&fit=crop" alt="Cœur et Valentine" />
       <p>Merci d'avoir joué ! Bonne Saint-Valentin à toi ❤️</p>
     </div>
-
-    <!-- Icône musique en forme de cœur -->
-    <button class="fab" id="toggle-audio" aria-label="Contrôler la musique" title="Contrôler la musique">
-      <span class="fab-icon" id="fab-icon">🔊</span>
-    </button>
-    <div class="audio-tooltip" id="audio-tooltip" role="status" aria-live="polite">Musique</div>
-
-    <span class="sr-only" id="sr-audio-status">Musique éteinte</span>
-    <audio id="valentine-audio" loop>
-      <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_69a61cd6d6.mp3" type="audio/mpeg">
-      Votre navigateur ne supporte pas l'élément audio.
-    </audio>
   </div>
+
+  <!-- Icône musique en forme de cœur (en dehors de la carte) -->
+  <button class="fab" id="toggle-audio" aria-label="Contrôler la musique" title="Contrôler la musique">
+    <span class="fab-icon" id="fab-icon">🔊</span>
+  </button>
+  <div class="audio-tooltip" id="audio-tooltip" role="status" aria-live="polite">Musique</div>
+
+  <span class="sr-only" id="sr-audio-status">Musique éteinte</span>
+  <audio id="valentine-audio" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_69a61cd6d6.mp3" type="audio/mpeg">
+    Votre navigateur ne supporte pas l'élément audio.
+  </audio>
 
   <script>
     // Calcul du prochain 14 février à minuit
