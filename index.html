@@ -304,8 +304,8 @@
   <div class="audio-tooltip" id="audio-tooltip" role="status" aria-live="polite">Musique</div>
 
   <span class="sr-only" id="sr-audio-status">Musique éteinte</span>
-  <audio id="valentine-audio" loop>
-    <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_69a61cd6d6.mp3" type="audio/mpeg">
+  <audio id="valentine-audio" loop preload="auto">
+    <source src="Lil_Peep_-_Life_Is_Beautiful.mp3" type="audio/mpeg">
     Votre navigateur ne supporte pas l'élément audio.
   </audio>
 
@@ -405,20 +405,27 @@
     }
 
     function toggleAudio() {
+      console.log('Toggle audio clicked, paused:', audio.paused);
       if (audio.paused) {
-        audio.play()
-          .then(() => {
-            audioUnlocked = true;
-            isPlaying = true;
-            updateAudioIcon(true);
-            showTooltipBriefly();
-          })
-          .catch((err) => {
-            console.log('Lecture automatique bloquée:', err);
-            updateAudioIcon(false);
-          });
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              console.log('Audio playing successfully');
+              audioUnlocked = true;
+              isPlaying = true;
+              updateAudioIcon(true);
+              showTooltipBriefly();
+            })
+            .catch((err) => {
+              console.log('Lecture bloquée:', err);
+              updateAudioIcon(false);
+              alert('Veuillez cliquer à nouveau pour activer la musique');
+            });
+        }
       } else {
         audio.pause();
+        console.log('Audio paused');
         isPlaying = false;
         updateAudioIcon(false);
         showTooltipBriefly();
@@ -432,19 +439,25 @@
 
     // Tentative de lecture automatique au chargement
     function tryAutoplay() {
-      audio.play()
-        .then(() => {
-          audioUnlocked = true;
-          isPlaying = true;
-          updateAudioIcon(true);
-        })
-        .catch(() => {
-          // La lecture automatique est bloquée, attendre l'interaction
-          updateAudioIcon(false);
-          audioTooltip.textContent = 'Cliquez pour activer la musique';
-          audioTooltip.classList.add('show');
-          setTimeout(() => audioTooltip.classList.remove('show'), 2500);
-        });
+      console.log('Trying autoplay...');
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            console.log('Autoplay successful');
+            audioUnlocked = true;
+            isPlaying = true;
+            updateAudioIcon(true);
+          })
+          .catch((err) => {
+            console.log('Autoplay bloqué (normal):', err);
+            // La lecture automatique est bloquée, attendre l'interaction
+            updateAudioIcon(false);
+            audioTooltip.textContent = 'Cliquez pour activer la musique';
+            audioTooltip.classList.add('show');
+            setTimeout(() => audioTooltip.classList.remove('show'), 2500);
+          });
+      }
     }
 
     // Init décor avec cœurs flottants
